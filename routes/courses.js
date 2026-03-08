@@ -23,16 +23,19 @@ router.post("/enroll", validateEnrollment, async (req, res,) => {
             .select();
 
             if (error) {
-                return res.status(500).json({ error: err.message });
+                return res.status(500).json({ error: error.message });
             }
 
-    
+        res.status(201).json({
+            message: "Student enrolled successfully",
+            data
+        });
     } catch (err) {
         res.status(500).json({ error: err.message});
     }
 });
 
-/*router.post("/courses", async (req, res) => {
+router.post("/courses", async (req, res) => {
     try {
         const { title, instructor } = req.body;
         if (!title || !instructor) {
@@ -50,7 +53,7 @@ router.post("/enroll", validateEnrollment, async (req, res,) => {
     } catch (err) {
         res.status(500).json({ error: err.message});
     }
-});*/
+});
 
 router.get("/courses/:id/enrollments", async(req, res) => {
     try {
